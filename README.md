@@ -1,6 +1,7 @@
-# vue_simple
+# vue_todo_simple
 
 > A Vue.js project
+> Do it vue.js 입문 이라는 책의 예제입니다.
 
 ## Build Setup
 
