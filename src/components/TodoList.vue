@@ -1,7 +1,7 @@
 <template>
     <section>
         <ul>
-            <li v-for="(item,index) in todoItems" :key = item.key class="shadow">
+            <li v-for="(item,index) in propsdata" :key = item.key class="shadow">
                 <i class="checkBtn fas fa-check" aria-hidden="true"></i>
                 {{item}}
                 <span class="removeBtn" type="button" @click="removeTodo(item, index)">
@@ -15,21 +15,42 @@
 
 <script>
 export default {
-    data() {
-        return {
-            todoItems: []
-        }
-    },
-    created() {
-        if(localStorage.length >0) {
-            for(var i=0; i < localStorage.length; i++) {
-                this.todoItems.push(localStorage.key(i));
-            }
+    props:['propsdata'],
+    methods: {
+        removeTodo(todoItem, index){
+            this.$emit("removeTodo", todoItem, index)
         }
     }
 }
 </script>
 
-<style>
+<style scoped>
+    ul{
+        list-style-type: none;
+        padding-left: 0px;
+        margin-top: 0;
+        text-align: right;
+    }
 
+    li {
+        display: flex;
+        min-height: 50px;
+        height: 50px;
+        margin: 0.5rem 0;
+        padding: 0 0.9rem;
+        background: white;
+        border-radius: 5px;
+        align-items: center;
+    }
+
+    .checkBtn {
+        line-height: 45px;
+        color: #62acde;
+        margin-right: 5px;
+    }
+
+    .removeBtn {
+        margin-left: auto;
+        color: #de4343;
+    }
 </style>
