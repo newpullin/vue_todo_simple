@@ -3,7 +3,7 @@
         <transition-group name ="list" tag="ul">
             <li v-for="(item,index) in propsdata" :key = "item['t_key']" class="shadow">
                 <i class="checkBtn fas fa-check" aria-hidden="true"></i>
-                <span v-if="edit_num === index && edit_state === true"><input type="text" v-model="edit_text"></span>
+                <span v-if="edit_num === index && edit_state === true"><input type="text" v-model="edit_text" @keyup.enter="updateTodo(index)"></span>
                 <span v-else>{{item['item']}}</span>
                 <span class="removeBtn" type="button" @click="removeTodo(index)">
                     <i class="far fa-trash-alt" aria-hidden="true"></i>
