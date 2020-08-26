@@ -6,6 +6,8 @@
 
 "Do it vue.js 입문"이라는 책의 예제입니다.
 
+수정하기를 추가하였습니다.
+
 ## Build Setup
 
 ``` bash
