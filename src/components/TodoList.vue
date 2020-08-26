@@ -1,12 +1,17 @@
 <template>
     <section>
         <transition-group name ="list" tag="ul">
-            <li v-for="(item,index) in propsdata" :key = "item" class="shadow">
+            <li v-for="(item,index) in propsdata" :key = "item['t_key']" class="shadow">
                 <i class="checkBtn fas fa-check" aria-hidden="true"></i>
-                {{item}}
-                <span class="removeBtn" type="button" @click="removeTodo(item, index)">
+                <span v-if="edit_num === index && edit_state === true"><input type="text" v-model="edit_text"></span>
+                <span v-else>{{item['item']}}</span>
+                <span class="removeBtn" type="button" @click="removeTodo(index)">
                     <i class="far fa-trash-alt" aria-hidden="true"></i>
                 </span>
+                <span class="editBtn" type="button" @click="updateTodo(index)">
+                    <i class ="fas fa-edit" aria-hidden="true"></i>
+                </span>
+
             </li>
         </transition-group>
     </section>
@@ -17,10 +22,31 @@
 export default {
     props:['propsdata'],
     methods: {
-        removeTodo(todoItem, index){
-            this.$emit("removeTodo", todoItem, index)
+        removeTodo(index){
+            this.$emit("removeTodo", index)
+        },
+        updateTodo(index) {
+            if( this.edit_state === true) {
+                // edit num => 인덱스올리고
+                // edit_text => 고칠 내용 올리고 
+                // edit_state = false로 만듬
+                this.$emit('updateTodo', this.edit_num, this.edit_text)
+            } 
+            else {
+                this.edit_text = this.propsdata[index]['item'];
+            }
+            this.edit_num = index;
+            
+            this.edit_state = !this.edit_state
+        },
+    },
+    data() {
+        return {
+            edit_num : -1,
+            edit_state: false,
+            edit_text: '',
         }
-    }
+    },
 }
 </script>
 
@@ -59,5 +85,8 @@ export default {
     .list-enter, .list-leave-to {
         opacity: 0;
         transform: translateY(30px);
+    }
+    .far {
+        margin-right: 10px;
     }
 </style>
