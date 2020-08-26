@@ -3,7 +3,7 @@
     <TodoHeader></TodoHeader>
     <TodoInput @addTodo="addTodo"></TodoInput>
     <TodoList :propsdata="todoItems" @removeTodo="removeTodo"></TodoList>
-    <TodoFooter></TodoFooter>
+    <TodoFooter @clearTodo="clearTodo"></TodoFooter>
   </div>
 </template>
 
@@ -27,6 +27,10 @@ export default {
     removeTodo(todoItem, index) {
       localStorage.removeItem(this.todoItem);
       this.todoItems.splice(index,1);
+    },
+    clearTodo() {
+      localStorage.clear()
+      this.todoItems = [];
     }
   },
   created() {
