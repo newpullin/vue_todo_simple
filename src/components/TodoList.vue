@@ -45,7 +45,7 @@ export default {
             this.edit_state = !this.edit_state
         },
     },
-    updated: function(){
+    updated(){
         // 이벤트 업데이트 이후, 수정 창이 활성화 되어 있으면 포커스를 줍니다.
         if(this.$refs.editInput[0]) {
             this.$refs.editInput[0].focus();
@@ -91,7 +91,7 @@ export default {
         color: #de4343;
     }
     .list-enter-active, .list-leave-active {
-        transition: all 1s;
+        transition: all 0.5s;
     }
     .list-enter, .list-leave-to {
         opacity: 0;

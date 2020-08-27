@@ -42,7 +42,7 @@ export default {
         },
         
     },
-    mounted: function() {
+    mounted() {
             if(this.$refs.mainInput){
                 this.$refs.mainInput.focus();
             }
