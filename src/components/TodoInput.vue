@@ -1,6 +1,6 @@
 <template>
     <div class="inputBox shadow">
-        <input type="text" v-model="newTodoItem" placeholder="Type what" @keyup.enter="addTodo">
+        <input type="text" v-model="newTodoItem" placeholder="Type what" @keyup.enter="addTodo" ref="mainInput">
         <span class="addContainer" @click ="addTodo">
             <i class="addBtn fas fa-plus" aria-hidden="true"></i>
         </span>
@@ -39,7 +39,13 @@ export default {
         },
         clearInput() {
             this.newTodoItem = '';
-        }
+        },
+        
+    },
+    mounted: function() {
+            if(this.$refs.mainInput){
+                this.$refs.mainInput.focus();
+            }
     },
     components: {
         Modal:Modal,

@@ -3,7 +3,8 @@
         <transition-group name ="list" tag="ul">
             <li v-for="(item,index) in propsdata" :key = "item['t_key']" class="shadow">
                 <i class="checkBtn fas fa-check" aria-hidden="true"></i>
-                <span v-if="edit_num === index && edit_state === true"><input type="text" v-model="edit_text" @keyup.enter="updateTodo(index)"></span>
+                <!-- 수정 상태이고,번호가 현재 인덱스와 같으면 수정 창을 뛰웁니다. -->
+                <span v-if="edit_num === index && edit_state === true"><input type="text" v-model="edit_text" @keyup.enter="updateTodo(index)" ref="editInput"></span>
                 <span v-else>{{item['item']}}</span>
                 <span class="removeBtn" type="button" @click="removeTodo(index)">
                     <i class="far fa-trash-alt" aria-hidden="true"></i>
@@ -25,20 +26,30 @@ export default {
         removeTodo(index){
             this.$emit("removeTodo", index)
         },
+        // todo를 업데이트하는 함수입니다.
+        // 현재아이템 배열의 index를 매개변수로 받습니다.
         updateTodo(index) {
             if( this.edit_state === true) {
                 // edit num => 인덱스올리고
                 // edit_text => 고칠 내용 올리고 
                 // edit_state = false로 만듬
                 this.$emit('updateTodo', this.edit_num, this.edit_text)
+                this.$refs.mainInput[0].focus();
             } 
             else {
                 this.edit_text = this.propsdata[index]['item'];
             }
+            //고쳐야 할 곳의 인덱스를 현재 인덱스로
             this.edit_num = index;
-            
+            // 현재 수정 상태 -> 일반 상태 , 일반 상태 -> 수정상태
             this.edit_state = !this.edit_state
         },
+    },
+    updated: function(){
+        // 이벤트 업데이트 이후, 수정 창이 활성화 되어 있으면 포커스를 줍니다.
+        if(this.$refs.editInput[0]) {
+            this.$refs.editInput[0].focus();
+        }
     },
     data() {
         return {
