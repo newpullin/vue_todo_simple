@@ -34,7 +34,7 @@ export default {
                 // edit_text => 고칠 내용 올리고 
                 // edit_state = false로 만듬
                 this.$emit('updateTodo', this.edit_num, this.edit_text)
-                this.$refs.mainInput[0].focus();
+                //this.$refs.mainInput[0].focus();
             } 
             else {
                 this.edit_text = this.propsdata[index]['item'];
