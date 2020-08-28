@@ -23,12 +23,12 @@ export default {
     addTodo(todoItem){
       const max_key = this.maxKey();
       localStorage.setItem(max_key,todoItem);
-      this.todoItems.push({'t_key':max_key, 'item':todoItem});
+      this.todoItems.push({'t_key':max_key, 'item': todoItem});
     },
     removeTodo(index) {
       localStorage.removeItem(this.todoItems[index]['t_key']);
       this.todoItems.splice(index,1);
-    },
+    }, 
     clearTodo() {
       localStorage.clear();
       this.todoItems = [];
