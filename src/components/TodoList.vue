@@ -1,7 +1,7 @@
 <template>
     <section>
-        <transition-group name ="list" tag="ul">
-            <li v-for="(item,index) in propsdata" :key = "item['t_key']" class="shadow">
+        <transition-group name ="list" tag="ul" >
+            <li v-for="(item,index) in propsdata" :key = "item['t_key']" v-bind:class="{'night':toggle_value, 'shadow':true}" @dblclick="updateTodo(index)">
                 <i class="checkBtn fas fa-check" aria-hidden="true"></i>
                 <!-- 수정 상태이고,번호가 현재 인덱스와 같으면 수정 창을 뛰웁니다. -->
                 <span v-if="edit_num === index && edit_state === true"><input type="text" v-model="edit_text" @keyup.enter="updateTodo(index)" ref="editInput"></span>
@@ -21,7 +21,7 @@
 
 <script>
 export default {
-    props:['propsdata'],
+    props:['propsdata', 'toggle_value'],
     methods: {
         removeTodo(index){
             this.$emit("removeTodo", index)
@@ -47,7 +47,7 @@ export default {
     },
     updated(){
         // 이벤트 업데이트 이후, 수정 창이 활성화 되어 있으면 포커스를 줍니다.
-        if(this.$refs.editInput[0]) {
+        if(this.edit_state === true) {
             this.$refs.editInput[0].focus();
         }
     },
@@ -78,6 +78,30 @@ export default {
         background: white;
         border-radius: 5px;
         align-items: center;
+
+    }
+    li.night {
+        display: flex;
+        min-height: 50px;
+        height: 50px;
+        margin: 0.5rem 0;
+        padding: 0 0.9rem;
+        background: white;
+        border-radius: 5px;
+        align-items: center;
+        color: black;
+
+    }
+    li:hover {
+        background: cadetblue;
+    }
+    li.night:hover {
+        background: #03e9f4;
+        color: rgba(62, 47, 100);
+        box-shadow: 0 0 5px #03e9f4,
+        0 0 25px #03e9f4,
+        0 0 50px #03e9f4,
+        0 0 200px #03e9f4;
     }
 
     .checkBtn {
@@ -100,4 +124,5 @@ export default {
     .far {
         margin-right: 10px;
     }
+
 </style>

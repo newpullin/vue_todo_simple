@@ -1,6 +1,6 @@
 <template>
     <div class="inputBox shadow">
-        <input type="text" v-model="newTodoItem" placeholder="Type what" @keyup.enter="addTodo" ref="mainInput">
+        <input type="text" v-model="newTodoItem" placeholder="내용을 입력해주세요." @keyup.enter="addTodo" ref="mainInput">
         <span class="addContainer" @click ="addTodo">
             <i class="addBtn fas fa-plus" aria-hidden="true"></i>
         </span>
@@ -8,7 +8,7 @@
         <modal v-if="showModal" @close="showModal = false">
             <h3 slot="header">경고</h3>
             <span slot="footer" @click="showModal = false">
-                할 일을 입력해야죠
+                할 일을 입력해주세요.
                 <i class="closeModalBtn fas fa-times" aria-hidden="true"></i>
             </span>
         </modal>
@@ -78,5 +78,9 @@ export default {
     .addBtn {
         color: white;
         vertical-align: middle;
+    }
+    .addContainer:hover {
+        box-shadow: 0 0 5px #861c86,
+        0 0 25px #dd9da4;
     }
 </style>
